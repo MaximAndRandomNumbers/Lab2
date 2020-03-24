@@ -3,16 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
+using System.Xml.Serialization;
 
 namespace ConsoleApp4
 {
-    class Product : Goods
+    [XmlRootAttribute("Product", Namespace = "ConsoleApp4",
+   IsNullable = false)]
+    public class Product : Goods
     {
-        public String Name { get; }
-        public float Value { get; }
-        public DateTime ProductionDate { get; }
-        public uint ExpirationTimeInDays { get; }
+        String Name { get; }
+        float Value { get; }
+        DateTime ProductionDate { get; }
+        uint ExpirationTimeInDays { get; }
 
+        public Product() { }
         public Product(String name, float value, DateTime productionDate, uint expirationTimeInDays)
         {
             Name = name;
@@ -23,11 +28,13 @@ namespace ConsoleApp4
 
         public override bool isExpired(DateTime currentDate)
         {
+            Trace.WriteLine("Method isExpired() in class Product is called");
             return ProductionDate.AddDays(ExpirationTimeInDays) < currentDate ? true : false;
         }
 
         public override void showInfo()
         {
+            Trace.WriteLine("Method showInfo() in class Product is called");
             Console.WriteLine("Product:\n" +
                 "\tName: " + Name +
                 "\n\tValue: " + Value +

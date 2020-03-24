@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace ConsoleApp4
 {
-
-    abstract class Goods
+    [XmlRootAttribute("Goods", Namespace = "ConsoleApp4",
+IsNullable = false)]
+    public abstract class Goods
     {
         abstract public bool isExpired(DateTime currentDate);
-        abstract public void showInfo();
-        
+        abstract public void showInfo();      
     }
 }

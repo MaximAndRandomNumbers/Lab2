@@ -4,13 +4,18 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace ConsoleApp4
 {
     class Program
     {
+        
         static void Main(string[] args)
         {
+            XmlSerializer serializer = new XmlSerializer(typeof(Goods));
+            TextWriter writer = new StreamWriter("xmlInfo.txt");
+
             string[] data = File.ReadAllLines("input.txt");
 
             int n = Int32.Parse(data[0]);
@@ -18,12 +23,18 @@ namespace ConsoleApp4
 
             //Fill array
             fillArray(goods, data);
+            
 
             //Show info 
             showInfo(goods);
 
             //FindExpired
             findExpired(goods, DateTime.Now);
+            foreach(Goods good in goods)
+            {
+                serializer.Serialize(writer, good);
+            }
+            writer.Close();
 
             Console.ReadKey();
         }
