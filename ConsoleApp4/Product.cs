@@ -5,17 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Xml.Serialization;
+using System.Xml;
+using System.Xml.Schema;
+using System.Runtime.Serialization;
 
 namespace ConsoleApp4
 {
-    [XmlRootAttribute("Product", Namespace = "ConsoleApp4",
-   IsNullable = false)]
-    public class Product : Goods
-    {
-        String Name { get; }
-        float Value { get; }
-        DateTime ProductionDate { get; }
-        uint ExpirationTimeInDays { get; }
+    [Serializable]
+    public class Product : Goods, ISerializable
+    {         
+        public String Name { get; set; }
+        public float Value { get; set; }
+        public DateTime ProductionDate { get; set; }
+        public uint ExpirationTimeInDays { get; set; }
 
         public Product() { }
         public Product(String name, float value, DateTime productionDate, uint expirationTimeInDays)
@@ -40,6 +42,15 @@ namespace ConsoleApp4
                 "\n\tValue: " + Value +
                 "\n\tDate of production: " + ProductionDate.ToShortDateString() +
                 "\n\tExpiration time in days: " + ExpirationTimeInDays);
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("Name", Name);
+            info.AddValue("Value", Value);
+            info.AddValue("ProductionDate", ProductionDate);
+            info.AddValue("ExpirationTimeInDays", ExpirationTimeInDays);
+
         }
     }
 }

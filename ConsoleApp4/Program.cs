@@ -13,8 +13,8 @@ namespace ConsoleApp4
         
         static void Main(string[] args)
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(Goods));
-            TextWriter writer = new StreamWriter("xmlInfo.txt");
+            XmlSerializer serializer = new XmlSerializer(typeof(Goods[]));
+            TextWriter writer = new StreamWriter("xmlInfo.xml");
 
             string[] data = File.ReadAllLines("input.txt");
 
@@ -32,8 +32,9 @@ namespace ConsoleApp4
             findExpired(goods, DateTime.Now);
             foreach(Goods good in goods)
             {
-                serializer.Serialize(writer, good);
+                //serializer.Serialize(writer, good);
             }
+            serializer.Serialize(writer, goods);
             writer.Close();
 
             Console.ReadKey();
@@ -64,7 +65,7 @@ namespace ConsoleApp4
 
         static void findExpired(Goods[] goods, DateTime currentDate)
         {
-            foreach(Goods good in goods)
+            foreach(Product good in goods)
             {
                 if (good.isExpired(currentDate))
                 {

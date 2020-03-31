@@ -8,10 +8,11 @@ using System.Xml.Serialization;
 
 namespace ConsoleApp4
 {
-    class Set : Goods
+    public class Set : Goods
     {
-        Product[] Products { get; }
+        public Product[] Products { get; set; }
 
+        public Set() { }
         public Set(Product[] products)
         {
             Array.Copy(products, this.Products, products.Length);

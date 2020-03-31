@@ -7,8 +7,10 @@ using System.Xml.Serialization;
 
 namespace ConsoleApp4
 {
-    [XmlRootAttribute("Goods", Namespace = "ConsoleApp4",
-IsNullable = false)]
+    [XmlInclude(typeof(Product))]
+    [XmlInclude(typeof(Set))]
+    [XmlInclude(typeof(Consignment))]
+    [Serializable]
     public abstract class Goods
     {
         abstract public bool isExpired(DateTime currentDate);

@@ -8,11 +8,12 @@ using System.Xml.Serialization;
 
 namespace ConsoleApp4
 {
-    class Consignment : Goods
+    public class Consignment : Goods
     {
-        Product Product { get; }
-        uint Amount { get; }
+        public Product Product { get; set; }
+        public uint Amount { get; set; }
 
+        public Consignment() { }
         public Consignment(Product product, uint amount)
         {
             this.Product = product;
